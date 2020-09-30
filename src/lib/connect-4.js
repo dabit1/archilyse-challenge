@@ -25,8 +25,6 @@ export const createBoard = (numRows, numCols) => {
  * @returns {Object}
  */
 export const createGame = (numRows, numCols) => ({
-  numCols,
-  numRows,
   currentPlayer: PLAYER1,
   winner: null,
   board: createBoard(numRows, numCols),
@@ -55,13 +53,13 @@ export const hasEmptyColumnHole = (board, column) => board[0][column] === 0;
  * @param {Object} lastHoleFilledUp - Last hole that has been filled up. Ex: { x: 0, y: 2}
  * @param {number} lastHoleFilledUp.x - X value of the hole
  * @param {number} lastHoleFilledUp.y - Y value of the hole
- * @param {number} numCols - Number of columns of the board
  * @returns {boolean}
  */
-export const hasStraightHorizontalLine = (board, lastHoleFilledUp, numCols) => {
+export const hasStraightHorizontalLine = (board, lastHoleFilledUp) => {
   let count = 1;
   const { x, y } = lastHoleFilledUp;
   const player = board[x][y];
+  const numCols = board[0].length;
 
   for (let i = y - 1; i >= 0 && board[x][i] === player; i--) {
     count++;
@@ -84,13 +82,13 @@ export const hasStraightHorizontalLine = (board, lastHoleFilledUp, numCols) => {
  * @param {Object} lastHoleFilledUp - Last hole that has been filled up. Ex: { x: 0, y: 2}
  * @param {number} lastHoleFilledUp.x - X value of the hole
  * @param {number} lastHoleFilledUp.y - Y value of the hole
- * @param {number} numRows - Number of rows of the board
  * @returns {boolean}
  */
-export const hasStraightVerticalLine = (board, lastHoleFilledUp, numRows) => {
+export const hasStraightVerticalLine = (board, lastHoleFilledUp) => {
   let count = 1;
   const { x, y } = lastHoleFilledUp;
   const player = board[x][y];
+  const numRows = board.length;
 
   for (let i = x + 1; i < numRows && board[i][y] === player; i++) {
     count++;
@@ -106,13 +104,11 @@ export const hasStraightVerticalLine = (board, lastHoleFilledUp, numRows) => {
  * @param {Object} lastHoleFilledUp - Last hole that has been filled up. Ex: { x: 0, y: 2}
  * @param {number} lastHoleFilledUp.x - X value of the hole
  * @param {number} lastHoleFilledUp.y - Y value of the hole
- * @param {number} numRows - Number of rows of the board
- * @param {number} numCols - Number of columns of the board
  * @returns {boolean}
  */
-export const hasPlayerWon = (board, lastHoleFilledUp, numRows, numCols) =>
-  hasStraightVerticalLine(board, lastHoleFilledUp, numRows) ||
-  hasStraightHorizontalLine(board, lastHoleFilledUp, numCols);
+export const hasPlayerWon = (board, lastHoleFilledUp) =>
+  hasStraightVerticalLine(board, lastHoleFilledUp) ||
+  hasStraightHorizontalLine(board, lastHoleFilledUp);
 
 /**
  * Changes the turn
@@ -139,11 +135,12 @@ export const addPieceToColumn = (game, column) => {
 /**
  * Checks if the board is complete
  * @param {number[][]} board - The board of the game
- * @param {number} numRows - Number of rows of the board
- * @param {number} numCols - Number of columns of the board
  * @returns {boolean}
  */
-export const isBoardComplete = (board, numRows, numCols) => {
+export const isBoardComplete = (board) => {
+  const numRows = board.length;
+  const numCols = board[0].length;
+
   for (let i = 0; i < numRows; i++) {
     for (let i2 = 0; i2 < numCols; i2++) {
       if (board[i][i2] === 0) {
@@ -164,16 +161,16 @@ export const play = (game, column) => {
   if (game.winner) {
     throw new Error('The game has already finished!');
   } else if (
-    !isExistingColumn(game.numCols, column) ||
+    !isExistingColumn(game.board[0].length, column) ||
     !hasEmptyColumnHole(game.board, column)
   ) {
     return;
   }
   const holePosition = addPieceToColumn(game, column);
-  if (hasPlayerWon(game.board, holePosition, game.numRows, game.numCols)) {
+  if (hasPlayerWon(game.board, holePosition)) {
     game.winner = game.currentPlayer;
     return true;
-  } else if (isBoardComplete(game.board, game.numRows, game.numCols)) {
+  } else if (isBoardComplete(game.board)) {
     return true;
   }
   switchTurn(game);

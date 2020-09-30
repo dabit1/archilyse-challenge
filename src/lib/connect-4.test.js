@@ -36,8 +36,6 @@ describe('Connect 4', () => {
     it('creates a new game', () => {
       const game = createGame(2, 2);
       expect(game).toEqual({
-        numCols: 2,
-        numRows: 2,
         currentPlayer: PLAYER1,
         winner: null,
         board: [
