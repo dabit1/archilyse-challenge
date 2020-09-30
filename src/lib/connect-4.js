@@ -100,7 +100,6 @@ export const hasStraightVerticalLine = (board, lastHoleFilledUp) => {
 /**
  * Checks if the player has won
  * @param {number[][]} board - The board of the game
- * @param {number} player - The player who has played the last
  * @param {Object} lastHoleFilledUp - Last hole that has been filled up. Ex: { x: 0, y: 2}
  * @param {number} lastHoleFilledUp.x - X value of the hole
  * @param {number} lastHoleFilledUp.y - Y value of the hole

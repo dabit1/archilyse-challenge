@@ -89,7 +89,7 @@ describe('Connect 4', () => {
         [0, b, b, a, a, 0],
         [0, a, a, b, b, 0],
       ];
-      expect(hasStraightHorizontalLine(board, { x: 1, y: 2 }, 6)).toBeTruthy();
+      expect(hasStraightHorizontalLine(board, { x: 1, y: 2 })).toBeTruthy();
     });
     it('returns true if it has four pieces in a row when the new position is at the front of the line', () => {
       const board = [
@@ -100,7 +100,7 @@ describe('Connect 4', () => {
         [0, b, b, a, a, 0],
         [0, a, a, b, b, 0],
       ];
-      expect(hasStraightHorizontalLine(board, { x: 1, y: 1 }, 6)).toBeTruthy();
+      expect(hasStraightHorizontalLine(board, { x: 1, y: 1 })).toBeTruthy();
     });
     it('returns true if it has four pieces in a row when the new position is at the end of the line', () => {
       const board = [
@@ -111,7 +111,7 @@ describe('Connect 4', () => {
         [0, b, b, a, a, 0],
         [0, a, a, b, b, 0],
       ];
-      expect(hasStraightHorizontalLine(board, { x: 1, y: 4 }, 6)).toBeTruthy();
+      expect(hasStraightHorizontalLine(board, { x: 1, y: 4 })).toBeTruthy();
     });
     it('returns false if it does not have four pieces in a row', () => {
       const board = [
@@ -122,7 +122,7 @@ describe('Connect 4', () => {
         [0, b, b, a, a, 0],
         [0, a, a, b, b, 0],
       ];
-      expect(hasStraightHorizontalLine(board, { x: 1, y: 2 }, 6)).toBeFalsy();
+      expect(hasStraightHorizontalLine(board, { x: 1, y: 2 })).toBeFalsy();
     });
   });
   describe('hasStraightVerticalLine', () => {
@@ -138,7 +138,7 @@ describe('Connect 4', () => {
         [0, 0, 0, a, 0, 0],
         [0, 0, 0, b, 0, 0],
       ];
-      expect(hasStraightVerticalLine(board, { x: 0, y: 3 }, 6)).toBeTruthy();
+      expect(hasStraightVerticalLine(board, { x: 0, y: 3 })).toBeTruthy();
     });
     it('returns false if it does not have four pieces in a column', () => {
       const board = [
@@ -149,7 +149,7 @@ describe('Connect 4', () => {
         [0, 0, 0, a, 0, 0],
         [0, 0, 0, b, 0, 0],
       ];
-      expect(hasStraightVerticalLine(board, { x: 2, y: 3 }, 6)).toBeFalsy();
+      expect(hasStraightVerticalLine(board, { x: 2, y: 3 })).toBeFalsy();
     });
   });
   describe('hasPlayerWon', () => {
@@ -165,7 +165,7 @@ describe('Connect 4', () => {
         [0, 0, 0, a, 0, 0],
         [0, 0, 0, a, 0, 0],
       ];
-      expect(hasPlayerWon(board, { x: 0, y: 3 }, 6, 6)).toBeTruthy();
+      expect(hasPlayerWon(board, { x: 0, y: 3 })).toBeTruthy();
     });
     it('returns false if the player has not got a line of four pieces', () => {
       const board = [
@@ -176,7 +176,7 @@ describe('Connect 4', () => {
         [0, 0, 0, a, 0, 0],
         [0, 0, 0, a, 0, 0],
       ];
-      expect(hasPlayerWon(board, { x: 2, y: 3 }, 6, 6)).toBeFalsy();
+      expect(hasPlayerWon(board, { x: 2, y: 3 })).toBeFalsy();
     });
   });
   describe('switchTurn', () => {
@@ -237,7 +237,7 @@ describe('Connect 4', () => {
         [PLAYER2, PLAYER1, PLAYER1, PLAYER2],
         [0, PLAYER2, PLAYER2, PLAYER1],
       ];
-      expect(isBoardComplete(board, 3, 4)).toBeFalsy();
+      expect(isBoardComplete(board)).toBeFalsy();
     });
     it('returns true if the board is complete', () => {
       const board = [
@@ -245,7 +245,7 @@ describe('Connect 4', () => {
         [PLAYER2, PLAYER1, PLAYER1, PLAYER2],
         [PLAYER2, PLAYER2, PLAYER2, PLAYER1],
       ];
-      expect(isBoardComplete(board, 3, 4)).toBeTruthy();
+      expect(isBoardComplete(board)).toBeTruthy();
     });
   });
   describe('play', () => {
