@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Connect4 from './Connect4';
-import { PLAYER1 } from '../lib/connect-4';
+import { PLAYER1, PLAYER2 } from '../lib/connect-4';
 import { act } from 'react-dom/test-utils';
 
 const winGame = (fireEvent, columns) => {
@@ -40,6 +40,7 @@ describe('Connect4 component', () => {
       onGameFinish: jest.fn(),
       numRows: 6,
       numCols: 7,
+      onChangePlayer: jest.fn(),
     };
   });
 
@@ -64,6 +65,24 @@ describe('Connect4 component', () => {
     const columns = columnSelectorComponent.querySelectorAll('div');
     finishGameWithoutWinner(fireEvent, columns);
     expect(props.onGameFinish).toHaveBeenCalledWith(null);
+  });
+  it('calls the prop "onChangePlayer" when turn is switched', () => {
+    const { getByTestId } = renderComponent();
+    const columnSelectorComponent = getByTestId('column-selector');
+    const columns = columnSelectorComponent.querySelectorAll('div');
+    fireEvent.click(columns[0]);
+    expect(props.onChangePlayer).toHaveBeenCalledWith(PLAYER2);
+  });
+  it('does not call the prop "onChangePlayer" when turn was not switched because of full column', () => {
+    props.numRows = 2;
+    props.numCols = 4;
+    const { getByTestId } = renderComponent();
+    const columnSelectorComponent = getByTestId('column-selector');
+    const columns = columnSelectorComponent.querySelectorAll('div');
+    fireEvent.click(columns[0]);
+    fireEvent.click(columns[0]);
+    fireEvent.click(columns[0]);
+    expect(props.onChangePlayer).toHaveBeenCalledTimes(2);
   });
   it('has a method to reset the game when it finishes', () => {
     props.numRows = 2;
