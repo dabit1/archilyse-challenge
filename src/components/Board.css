@@ -1,0 +1,12 @@
+.Board {
+  display: inline-block;
+}
+
+.Board-container {
+  background-color: cornflowerblue;
+  padding: 10px;
+}
+
+.Board-row {
+  display: flex;
+}

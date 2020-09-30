@@ -1,0 +1,13 @@
+.Piece {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+
+.Piece-player1 {
+  background-color: firebrick;
+}
+
+.Piece-player2 {
+  background-color: goldenrod;
+}

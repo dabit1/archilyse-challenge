@@ -1,0 +1,13 @@
+.ColumnSelector {
+  margin-bottom: -3px;
+}
+
+.ColumnSelector-col {
+  height: 40px;
+  width: 40px;
+  margin: 0 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline-block;
+  position: relative;
+}
